@@ -6,8 +6,8 @@
  * @flow strict-local
  */
 
-import React from 'react';
 import type {Node} from 'react';
+import React from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -25,6 +25,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {useDeepLink} from './useDeepLink';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
@@ -57,6 +58,7 @@ const Section = ({children, title}): Node => {
 const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
+  useDeepLink();
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
