@@ -1,12 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import type {Node} from 'react';
 import React from 'react';
 import {
   SafeAreaView,
@@ -16,6 +7,7 @@ import {
   Text,
   useColorScheme,
   View,
+  Linking,
 } from 'react-native';
 
 import {
@@ -25,11 +17,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import {useDeepLink} from './useDeepLink';
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
+const Section = ({children, title}) => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -55,10 +46,9 @@ const Section = ({children, title}): Node => {
   );
 };
 
-const App: () => Node = () => {
+const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
-  useDeepLink();
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
@@ -117,3 +107,17 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+Linking.getInitialURL().then(d => {
+  // Fires if app was closed and you enter command
+  // npx uri-scheme open "mychat://bar" --ios
+  // Linking.openSettings();
+  console.warn('Initial deep link url', d);
+});
+
+Linking.addEventListener('url', u => {
+  // Never fires when you enter command
+  // npx uri-scheme open "mychat://bar" --ios
+  console.log('Updated deep link url', u);
+});
+console.log('event listener added');
