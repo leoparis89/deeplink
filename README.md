@@ -9,5 +9,6 @@ Steps to reproduce:
 1. yarn
 2. cd ios && pod install
 3. yarn ios
-4. run command `npx uri-scheme open "mychat://bar" --ios`.
-   App gets focused but url event never fires in `./useDeepLink.js` line 15.
+4. put app in background
+5. run command `npx uri-scheme open "mychat://bar" --ios`.
+   App gets focused but url event never fires in `./App.js` line 121.
