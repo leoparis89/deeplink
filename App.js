@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -52,6 +52,19 @@ const App = () => {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
+
+  useEffect(() => {
+    // for checking for deeplinks when app is open/background
+    const subscription = Linking.addEventListener('url', (event) => {
+    console.log("inside listener");
+    if (event.url) {
+     console.log(event);
+    }
+    });
+    return () => {
+      subscription.remove();
+    };
+  },[]);
 
   return (
     <SafeAreaView style={backgroundStyle}>
